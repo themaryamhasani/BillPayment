@@ -7,13 +7,99 @@
     android:background="#d5def5"
     tools:context=".MainActivity">
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animation3"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_fileName="payment_services.json"/>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/buy_charge"
+        android:layout_width="wrap_content"
+        app:cardElevation="20dp"
+        app:cardCornerRadius="20dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toStartOf="@+id/fixed_line_bill"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/fixed_line_bill">
+
+        <LinearLayout
+            android:layout_width="170dp"
+            android:layout_height="170dp">
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/animation2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:lottie_autoPlay="true"
+                app:lottie_fileName="simcard.json"
+                app:lottie_loop="true" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/fixed_line_bill"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="75dp"
+        app:cardElevation="20dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/buy_charge"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="170dp"
+            android:layout_height="170dp">
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/animation1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:lottie_autoPlay="true"
+                app:lottie_fileName="pay_bills.json"
+                app:lottie_loop="true" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="خرید شارژ"
+        android:textColor="#430f58"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="@+id/buy_charge"
+        app:layout_constraintStart_toStartOf="@+id/buy_charge"
+        app:layout_constraintTop_toBottomOf="@+id/buy_charge" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginTop="16dp"
+        android:text="قبض تلفن"
+        android:textColor="#430f58"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="@+id/fixed_line_bill"
+        app:layout_constraintStart_toStartOf="@+id/fixed_line_bill"
+        app:layout_constraintTop_toBottomOf="@+id/fixed_line_bill" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
