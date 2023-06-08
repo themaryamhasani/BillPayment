@@ -1,44 +1,57 @@
 package com.example.billpayment;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.example.billpayment.data.FixedLineResponse;
+import java.io.IOException;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class FixedLineBillActivity extends AppCompatActivity {
+
+    public String postUrl = "https://charge.sep.ir/Inquiry/FixedLineBillInquiry";
+    OkHttpClient client = new OkHttpClient();
+    String bill;
+    public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fixed_line_bill);
+        try {
+            callAPI("02122129043");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://charge.sep.ir/")
-                .addConverterFactory(GsonConverterFactory.create())
+    void callAPI(String number) throws IOException {
+
+        RequestBody body = RequestBody.create(JSON, number);
+        Request request = new Request.Builder()
+                .url(postUrl)
+                .post(body)
                 .build();
-
-        API api = retrofit.create(API.class);
-
-        Call<FixedLineResponse> call = api.getBillInquiry("02122129043");
-        call.enqueue(new Callback<FixedLineResponse>() {
+        client.newCall(request).enqueue(new Callback() {
             @Override
-            public void onResponse(Call<FixedLineResponse> call, Response<FixedLineResponse> response) {
-                String str = response.body().getData().getInquiry().getDescription().toString();
-                Toast.makeText(FixedLineBillActivity.this, str, Toast.LENGTH_SHORT).show();
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                call.cancel();
             }
             @Override
-            public void onFailure(Call<FixedLineResponse> call, Throwable t) {
-
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                assert response.body() != null;
+                bill = response.body().string();
+                runOnUiThread(() -> Toast.makeText(FixedLineBillActivity.this, bill, Toast.LENGTH_SHORT).show());
             }
         });
     }
-
 }
